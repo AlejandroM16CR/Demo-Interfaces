@@ -24,10 +24,13 @@ public class ContratosTests
         // La ventaja de depender del contrato: esta prueba no conoce ni le
         // importa la lógica de descuentos real. Si mañana CalculadoraPrecioEstandar
         // cambia sus reglas, esta prueba ni se entera.
-        var procesador = new ProcesadorDeReserva(new CalculadoraPrecioFalsa());
-        var solicitud = new SolicitudDeReserva();   // no importa qué traiga -- el doble la ignora
+        var calculadoraFalsa = new CalculadoraPrecioFalsa();
+        var proveedorFalso = new ProveedorSolicitudFalso();
 
-        var total = procesador.CalcularTotal(solicitud);
+        var procesador = new ProcesadorDeReserva(calculadoraFalsa, proveedorFalso);
+           // no importa qué traiga -- el doble la ignora
+
+        var total = procesador.CalcularTotal();
 
         Assert.Equal(100000m, total);
     }
